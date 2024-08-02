@@ -31,7 +31,7 @@ export default function Home( { navigation } ) {
 
       {/* Add Journal Entry Button */}
       {/* <View style={styles.addButtonContainer}> */}
-        <TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestion')}>
+        <TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestion1')}>
           <View style={styles.addButtonView}>
             <Text style={styles.addButtonText}>+ Add Entry</Text>
           </View>

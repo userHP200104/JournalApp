@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-interface ButtonsProps {
+interface ReviewButtonsProps {
   navigation: any;
   prevScreen: string;
   nextScreen: string;
   nextButton: string;
 }
 
-const Buttons: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton }) => {
+const ReviewButtons: React.FC<ReviewButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton }) => {
   return (
     // Buttons
     <View style={styles.buttonContainer}>
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#000000',
     backgroundColor: '#FFF',
+    position: 'absolute',
+    bottom: -1,
+    zIndex: 9999,
   },
   backButton: {
     flexDirection: 'column',
@@ -71,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Buttons;
+export default ReviewButtons;

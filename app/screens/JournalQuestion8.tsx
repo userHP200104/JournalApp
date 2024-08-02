@@ -3,58 +3,21 @@ import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput} from 'react-native';
 import { useEffect } from 'react';
 
-export default function JournalQuestion( { navigation } ) {
+import Header from '@/components/journal/Header';
+import Question from '@/components/journal/Question';
+import Answer from '@/components/journal/Answer';
+import Buttons from '@/components/journal/Buttons';
+import Emoji from '@/components/journal/Emoji';
+
+export default function Review( { navigation } ) {
     
-    // Text Input Handler
-    const [answer, onChangeAnswer] = React.useState('');
-  
-
   return (
-    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-
-        {/* Header */}
-        <View style={styles.header}>
-            <Text style={styles.headerText}>Question 1</Text>
-        </View>
-        {/* Header End*/}
-
-        {/* Question Container*/}  
-        <View style={styles.questionContainer}>
-            <Text style={styles.question}>What was the highlight of your&nbsp;day?</Text>
-        </View>
-        {/* Question Container End*/}  
-
-        {/* Answer Input */}
-        <View style={styles.answerInputContainer}>
-                <TextInput
-                    multiline = {true}
-                    numberOfLines = {14}
-                    style={styles.answerInput}
-                    onChangeText={onChangeAnswer}
-                    placeholder='Type your answer here...'
-                    value={answer}
-                    />
-        </View>
-        {/* Answer Input End */}
-
-        {/* Buttons*/}
-        <View style={styles.buttonContainer}>
-            {/* Back Button*/}  
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Text style={styles.backButtonText}>&lt;&nbsp;Back</Text>
-            </TouchableOpacity>        
-            {/* Back Button End*/}  
-
-            {/* Next Button*/}  
-            <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('JQTwo')}>
-                <Text style={styles.nextButtonText}>Next&nbsp;&gt;</Text>                
-            </TouchableOpacity>        
-            {/* Next Button End*/}  
-
-        </View>  
-{/* Buttons End*/}
-      
-    </View>
+    <>
+    <Header headerNumber='Last Question'/>
+    <Question question='What are you feeling&nbsp;today?'/>
+    <Emoji/>
+    <Buttons navigation={navigation} prevScreen="JournalQuestion7" nextScreen="Review" nextButton="Review"/>
+    </>
   );
 }
 
