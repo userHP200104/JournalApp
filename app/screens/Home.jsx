@@ -1,6 +1,6 @@
 import { Link } from 'expo-router';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Button, Image } from 'react-native';
+import { useState, useEffect } from 'react';
 
 export default function Home( { navigation } ) {
 
@@ -15,28 +15,15 @@ export default function Home( { navigation } ) {
 
       {/* Journal Entry Display */}
       <View style={styles.entryStorage}>
-        <Text style={styles.emptyTextOne}>It feels a bit empty in here 😅.</Text>      
+        <Text style={styles.emptyTextOne}>It feels a bit empty in here 😅.</Text>
+
       </View>
 
-      {/* <View style={styles.toolTip}>
-        <Text style={styles.emptyTextTwo}>Let’s change that 😁.</Text>
-        <Image
-          style={styles.arrow}
-          source={{
-            uri: 'assets/images/down_arrow.svg'
-          }}
-          />
-      </View> */}
-      {/* Journal Entry Display End*/}
-
-      {/* Add Journal Entry Button */}
-      {/* <View style={styles.addButtonContainer}> */}
         <TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestion1')}>
           <View style={styles.addButtonView}>
             <Text style={styles.addButtonText}>+ Add Entry</Text>
           </View>
-        </TouchableOpacity>
-      {/* </View> */}
+        </TouchableOpacity>      
       {/* Add Journal Entry Button End*/}
       
     </View>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput} from 'react-native';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from '@/components/journal/Header';
 import Question from '@/components/journal/Question';
 import Answer from '@/components/journal/Answer';
-import Buttons from '@/components/journal/Buttons';
 
 export default function JournalQuestion1( { navigation } ) {
     
@@ -14,8 +13,7 @@ export default function JournalQuestion1( { navigation } ) {
     <>
     <Header headerNumber='Question 1'/>
     <Question question='What was the highlight of your&nbsp;day?'/>
-    <Answer/>
-    <Buttons navigation={navigation} prevScreen="Home" nextScreen="JournalQuestion2" nextButton="Next&nbsp;&gt;"/>
+    <Answer navigation={navigation} prevScreen="Home" nextScreen="JournalQuestion2" nextButton="Next&nbsp;&gt;"/>
     </>
 //     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 

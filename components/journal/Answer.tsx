@@ -1,16 +1,27 @@
 import React from 'react';
 import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput} from 'react-native';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Answer() {
+import Buttons from '@/components/journal/Buttons';
+
+
+interface ButtonsProps {
+  navigation: any;
+  prevScreen: string;
+  nextScreen: string;
+  nextButton: string;
+}
+
+  const Answer: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton}) => {
     
     // Text Input Handler
-    const [answer, onChangeAnswer] = React.useState('');
+    const [journalAnswer, onChangeAnswer] = useState('');
   
 
   return (
         // Answer Input
+        <>
         <View style={styles.answerInputContainer}>
                 <TextInput
                     multiline = {true}
@@ -18,9 +29,11 @@ export default function Answer() {
                     style={styles.answerInput}
                     onChangeText={onChangeAnswer}
                     placeholder='Type your answer here...'
-                    value={answer}
+                    value={journalAnswer}
                     />
         </View>
+        <Buttons navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} answer={journalAnswer}/>
+        </>
         // Answer Input End
   );
 }
@@ -38,3 +51,5 @@ const styles = StyleSheet.create({
   },
 
 });
+
+export default Answer;

@@ -14,9 +14,8 @@ export default function Review( { navigation } ) {
   return (
     <>
     <Header headerNumber='Last Question'/>
-    <Question question='What are you feeling&nbsp;today?'/>
-    <Emoji/>
-    <Buttons navigation={navigation} prevScreen="JournalQuestion7" nextScreen="Review" nextButton="Review"/>
+    {/* <Question question='What are you feeling&nbsp;today?'/> */}
+    <Emoji navigation={navigation} prevScreen="JournalQuestion7" nextScreen="Review" nextButton="Review"/>
     </>
   );
 }

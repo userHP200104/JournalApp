@@ -3,17 +3,55 @@ import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput} from 'react-native';
 import { useEffect } from 'react';
 
+import { loadData } from '@/app/AsycStorageServie'
+
+
 import ReviewTemplate from '@/components/journal/ReviewTemplate';
 import ReviewButtons from '@/components/journal/ReviewButtons';
 
+import { TestEntries } from '../TestEntries';
+
 export default function JournalQuestion8( { navigation } ) {
+
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  // day.toString()+'.'+month.toString()+'.'+year.toString()
+  
+  useEffect(() => {
+    (async()=>{
+         await loadData()
+         console.log('useEffect',await loadData())
+    })();
+}, [])
+
     
   return (
     <>
-    <ReviewTemplate title={'title'} feeling={'feeling'} question1={'question1'} question2={'question2'} question3={'question3'} question4={'question4'} question5={'question5'} question6={'question6'}/>
-    <ReviewButtons navigation={navigation} prevScreen="JournalQuestion8" nextScreen="Home" nextButton="Done"/>
+      {TestEntries.map((entry) => (
+        <React.Fragment key={entry.id}>
+          <ReviewTemplate
+            title={entry.title}
+            feeling={entry.feeling}
+            question1={entry.answer1}
+            question2={entry.answer2}
+            question3={entry.answer3}
+            question4={entry.answer4}
+            question5={entry.answer5}
+            question6={loadData().toString()}
+          />
+          <ReviewButtons
+            navigation={navigation}
+            prevScreen="JournalQuestion8"
+            nextScreen="Home"
+            nextButton="Done"
+          />
+        </React.Fragment>
+      ))}
     </>
   );
+  
 }
 
 const styles = StyleSheet.create({

@@ -1,25 +1,36 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
+import { saveData } from '@/app/AsycStorageServie'
+
 interface ButtonsProps {
   navigation: any;
   prevScreen: string;
   nextScreen: string;
   nextButton: string;
+  answer: string;
 }
 
-const Buttons: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton }) => {
+const Buttons: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton, answer }) => {
+  
+  const date = new Date().toDateString();
+
   return (
     // Buttons
     <View style={styles.buttonContainer}>
       {/* Back Button */}
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate(prevScreen)}>
+      <TouchableOpacity style={styles.backButton} onPress={() => {
+        navigation.navigate(prevScreen);
+        console.log("Back")}}>
         <Text style={styles.backButtonText}>&lt;&nbsp;Back</Text>
       </TouchableOpacity>
       {/* Back Button End */}
 
       {/* Next Button */}
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate(nextScreen)}>
+      <TouchableOpacity style={styles.nextButton} onPress={() => {
+        navigation.navigate(nextScreen);
+        saveData(date, answer);
+        console.log({ answer, date })}}>
         <Text style={styles.nextButtonText}>{nextButton}</Text>
       </TouchableOpacity>
       {/* Next Button End */}
