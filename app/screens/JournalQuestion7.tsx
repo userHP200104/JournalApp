@@ -14,7 +14,7 @@ export default function JournalQuestion7( { navigation } ) {
     <>
     <Header headerNumber='Question 7'/>
     <Question question='Describe your day in a short&nbsp;phrase.'/>
-    <Answer navigation={navigation} prevScreen="JournalQuestion6" nextScreen="JournalQuestion8" nextButton="Next&nbsp;&gt;"/>
+    <Answer navigation={navigation} prevScreen="JournalQuestion6" nextScreen="JournalQuestion8" nextButton="Next&nbsp;&gt;" entryKey='title'/>
     </>
   );
 }

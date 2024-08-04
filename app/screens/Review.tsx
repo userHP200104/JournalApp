@@ -3,7 +3,7 @@ import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput} from 'react-native';
 import { useEffect } from 'react';
 
-import { loadData } from '@/app/AsycStorageServie'
+import { getEntry } from '@/app/AsycStorageServie'
 
 
 import ReviewTemplate from '@/components/journal/ReviewTemplate';
@@ -21,14 +21,15 @@ export default function JournalQuestion8( { navigation } ) {
   
   useEffect(() => {
     (async()=>{
-         await loadData()
-         console.log('useEffect',await loadData())
+         await getEntry(),
+         console.log('useEffect',await getEntry())
     })();
 }, [])
 
     
   return (
     <>
+    <Text>{getEntry('title').toString()}</Text>
       {TestEntries.map((entry) => (
         <React.Fragment key={entry.id}>
           <ReviewTemplate
@@ -39,7 +40,7 @@ export default function JournalQuestion8( { navigation } ) {
             question3={entry.answer3}
             question4={entry.answer4}
             question5={entry.answer5}
-            question6={loadData().toString()}
+            question6={entry.answer6}
           />
           <ReviewButtons
             navigation={navigation}

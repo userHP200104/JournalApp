@@ -13,7 +13,7 @@ export default function JournalQuestion1( { navigation } ) {
     <>
     <Header headerNumber='Question 1'/>
     <Question question='What was the highlight of your&nbsp;day?'/>
-    <Answer navigation={navigation} prevScreen="Home" nextScreen="JournalQuestion2" nextButton="Next&nbsp;&gt;"/>
+    <Answer navigation={navigation} prevScreen="Home" nextScreen="JournalQuestion2" nextButton="Next&nbsp;&gt;" entryKey='answer1'/>
     </>
 //     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 

@@ -3,7 +3,7 @@ import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput, Button} from 'react-native';
 import { useState, useEffect } from 'react';
 
-import Buttons from '@/components/journal/Buttons';
+import ReviewEntryButton from '@/components/journal/ReviewEntryButton';
 
 interface EmojiButtonProps {
     emoji: string;
@@ -29,7 +29,7 @@ const EmojiButton:React.FC<EmojiButtonProps> = ({emoji, feeling}) => {
                     {
                         shadowOffset: {
                             width: 0,
-                            height: -0,
+                            height: -0, 
                         },
                         shadowOpacity,
                         shadowRadius,
@@ -48,7 +48,6 @@ const Emoji: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nex
 
     const [emoji, setEmoji] = useState('What are you feeling today?')
     const [feeling, setFeeling] = useState('')
-
 
   return (
     <>
@@ -86,7 +85,7 @@ const Emoji: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nex
             
         </View>
     </View>
-    <Buttons navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} answer={feeling+" "+emoji}/>
+    <ReviewEntryButton navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} entryKey='feeling' answer={feeling+" "+emoji}/>
     </>
 
   );

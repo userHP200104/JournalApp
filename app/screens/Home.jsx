@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 export default function Home( { navigation } ) {
 
   return (
+
+
     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 
       {/* Header */}        

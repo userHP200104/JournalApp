@@ -5,15 +5,19 @@ import { useEffect, useState } from 'react';
 
 import Buttons from '@/components/journal/Buttons';
 
+import { TestEntries } from '../../app/TestEntries';
+
+
 
 interface ButtonsProps {
   navigation: any;
   prevScreen: string;
   nextScreen: string;
   nextButton: string;
+  entryKey: string;
 }
 
-  const Answer: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton}) => {
+  const Answer: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton, entryKey}) => {
     
     // Text Input Handler
     const [journalAnswer, onChangeAnswer] = useState('');
@@ -32,7 +36,7 @@ interface ButtonsProps {
                     value={journalAnswer}
                     />
         </View>
-        <Buttons navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} answer={journalAnswer}/>
+        <Buttons navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} entryKey={entryKey} answer={journalAnswer}/>
         </>
         // Answer Input End
   );
