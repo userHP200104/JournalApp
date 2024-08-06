@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Button, Image } from 'react-native';
+
 import { useCallback, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -30,6 +31,7 @@ interface Entry {
   answer6: string;
   feeling: string;
   emojiFeeling: string;
+  isDone: boolean;
 }
 
 export default function Home({ navigation }: HomeProps) {
@@ -80,8 +82,8 @@ export default function Home({ navigation }: HomeProps) {
     return match ? match[0] : '';
   };
 
-  const renderItem = ({ item }: { item: Entry }) => (
-    <TouchableOpacity
+  const renderItem = ({ item }: { item: Entry }) => ((item.isDone == true) &&
+    (<TouchableOpacity
       style={styles.entryItem}
       onPress={() => navigation.navigate('ViewEntry', { entryId: item.id })}
     >
@@ -97,7 +99,7 @@ export default function Home({ navigation }: HomeProps) {
         
         </View>  
       </View>
-    </TouchableOpacity>
+    </TouchableOpacity>)
   );
 
   return (
@@ -107,7 +109,7 @@ export default function Home({ navigation }: HomeProps) {
 
       {/* Header */}        
       <View style={styles.header}>
-        <Text style={styles.headerText}>Journal Entries</Text>
+        <Text style={styles.headerText}>My Entries</Text>
       </View>
       {/* Header End*/}
 
@@ -133,7 +135,9 @@ export default function Home({ navigation }: HomeProps) {
 
       <TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestions')}>
         <View style={styles.addButtonView}>
-          <Text style={styles.addButtonText}>+ Add Entry</Text>
+          <Text style={styles.addButtonText}>
+            + Add Entry
+            </Text>
         </View>
       </TouchableOpacity>      
       {/* Add Journal Entry Button End*/}
@@ -174,7 +178,7 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
     paddingHorizontal: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#000',
+    borderBottomColor: '#00000020'
   },
 
   flatList: {
@@ -205,17 +209,17 @@ const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'column', 
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    paddingTop: 64,
+    paddingTop: 100,
     padding: 32,
     borderBottomWidth: 1,
-    borderBottomColor: '#000000',
+    borderBottomColor: '#00000020',
     width: '100%',
   },
 
   headerText: {
-    fontSize: 24,
+    fontSize: 48,
     fontWeight: 'bold'
   },
 

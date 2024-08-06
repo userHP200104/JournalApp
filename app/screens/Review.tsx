@@ -7,7 +7,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 
 import ReviewTemplate from '@/components/journal/ReviewTemplate';
-import ReviewButtons from '@/components/journal/ReviewButtons';
 
 
 type RootStackParamList = {
@@ -33,6 +32,7 @@ interface Entry {
   answer6: string;
   feeling: string;
   emojiFeeling: string;
+  isDone: boolean;
 }
 
 export default function Review({ route, navigation }: ReviewProps) {
@@ -53,6 +53,20 @@ export default function Review({ route, navigation }: ReviewProps) {
 
     fetchEntry();
   }, [entryId]);
+
+  const handleDone = async () => {
+    if (entry) {
+      const updatedEntry = { ...entry, isDone: true };
+      setEntry(updatedEntry);
+
+      try {
+        await AsyncStorage.setItem(entryId, JSON.stringify(updatedEntry));
+        navigation.navigate('Home');
+      } catch (error) {
+        console.error('Failed to save the entry:', error);
+      }
+    }
+  };
 
   if (!entry) {
     return (
@@ -86,7 +100,7 @@ export default function Review({ route, navigation }: ReviewProps) {
             {/* Back Button End */}
 
             {/* Next Button */}
-            <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity style={styles.nextButton} onPress={handleDone}>
               <Text style={styles.nextButtonText}>Done</Text>
             </TouchableOpacity>
             {/* Next Button End */}
