@@ -1,37 +1,73 @@
 import React from 'react';
-import { Stack, useNavigation, Link } from 'expo-router';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput} from 'react-native';
-import { useEffect } from 'react';
-
-import { getEntry } from '@/app/AsycStorageServie'
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 
 import ReviewTemplate from '@/components/journal/ReviewTemplate';
 import ReviewButtons from '@/components/journal/ReviewButtons';
 
-import { TestEntries } from '../TestEntries';
 
-export default function JournalQuestion8( { navigation } ) {
+type RootStackParamList = {
+  Review: { entryId: string };
+};
 
-  let date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  // day.toString()+'.'+month.toString()+'.'+year.toString()
-  
+type ReviewScreenRouteProp = RouteProp<RootStackParamList, 'Review'>;
+type ReviewScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Review'>;
+
+interface ReviewProps {
+  route: ReviewScreenRouteProp;
+  navigation: ReviewScreenNavigationProp;
+}
+
+interface Entry {
+  id: string;
+  title: string;
+  answer1: string;
+  answer2: string;
+  answer3: string;
+  answer4: string;
+  answer5: string;
+  answer6: string;
+  feeling: string;
+  emojiFeeling: string;
+}
+
+export default function Review({ route, navigation }: ReviewProps) {
+  const [entry, setEntry] = useState<Entry | null>(null);
+  const { entryId } = route.params;
+
   useEffect(() => {
-    (async()=>{
-         await getEntry(),
-         console.log('useEffect',await getEntry())
-    })();
-}, [])
+    const fetchEntry = async () => {
+      try {
+        const storedEntry = await AsyncStorage.getItem(entryId);
+        if (storedEntry) {
+          setEntry(JSON.parse(storedEntry));
+        }
+      } catch (error) {
+        console.error('Failed to fetch the entry:', error);
+      }
+    };
 
-    
+    fetchEntry();
+  }, [entryId]);
+
+  if (!entry) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
+
+
     <>
-    <Text>{getEntry('title').toString()}</Text>
-      {TestEntries.map((entry) => (
-        <React.Fragment key={entry.id}>
+      
+
           <ReviewTemplate
             title={entry.title}
             feeling={entry.feeling}
@@ -42,113 +78,130 @@ export default function JournalQuestion8( { navigation } ) {
             question5={entry.answer5}
             question6={entry.answer6}
           />
-          <ReviewButtons
-            navigation={navigation}
-            prevScreen="JournalQuestion8"
-            nextScreen="Home"
-            nextButton="Done"
-          />
-        </React.Fragment>
-      ))}
+          <View style={styles.buttonContainer}>
+            {/* Back Button */}
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('JournalQuestions')}>
+              <Text style={styles.backButtonText}>&lt;&nbsp;Back</Text>
+            </TouchableOpacity>
+            {/* Back Button End */}
+
+            {/* Next Button */}
+            <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Home')}>
+              <Text style={styles.nextButtonText}>Done</Text>
+            </TouchableOpacity>
+            {/* Next Button End */}
+          </View>
+    
     </>
   );
-  
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
 
+  // 
+  
   journalQuestionView: {
-    flex: 1,
-    flexDirection: 'column',
-    // alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-
-  header: {
-    flexDirection: 'column', 
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingTop: 64,
-    padding: 32,
-    borderBottomWidth: 1,
-    borderBottomColor: '#000000',
-    width: '100%',
-  },
-
-  headerText: {
-    fontSize: 24,
-    fontWeight: 600
-  },
-
-  questionContainer:{
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    backgroundColor: '#000000',
-    paddingVertical: 48,
-    paddingHorizontal: 24,
-  }, 
-
-  question:{
-    fontSize: 24,
-    color: '#FFFFFF',
-  },
-
-  answerInputContainer: {
-    flex: 1,
-    width: '100%',
-    padding: 32,
-  },
-
-  answerInput: {
-
-  },
-
-  buttonContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 32,
-    paddingBottom: 48,
-    borderTopWidth: 1,
-    borderTopColor: '#000000',
-  },
-
-  backButton: {
-    flexDirection: 'column', 
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderWidth: 1,
-    borderColor: '#000000',
-    textAlign: 'center'
-  },
-
-  nextButton: {
-    flexDirection: 'column', 
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderWidth: 1,
-    borderColor: '#000000',
-    textAlign: 'center',
-    backgroundColor: '#000000',
-
-  },
-
-  backButtonText: {
-    fontSize: 24,
-    fontWeight: 600,
-   },
-
-  nextButtonText: {
-    fontSize: 24,
-    fontWeight: 600,
-    color: '#FFFFFF',
-   },
-
+        flex: 1,
+        flexDirection: 'column',
+        // alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+      },
+    
+      header: {
+        flexDirection: 'column', 
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 64,
+        padding: 32,
+        borderBottomWidth: 1,
+        borderBottomColor: '#000000',
+        width: '100%',
+      },
+    
+      headerText: {
+        fontSize: 24,
+        fontWeight: 600
+      },
+    
+      questionContainer:{
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        backgroundColor: '#000000',
+        paddingVertical: 48,
+        paddingHorizontal: 24,
+      }, 
+    
+      question:{
+        fontSize: 24,
+        color: '#FFFFFF',
+      },
+    
+      answerInputContainer: {
+        flex: 1,
+        width: '100%',
+        padding: 32,
+      },
+    
+      answerInput: {
+    
+      },
+    
+      buttonContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingTop: 32,
+        paddingBottom: 48,
+        borderTopWidth: 1,
+        borderTopColor: '#000000',
+      },
+    
+      backButton: {
+        flexDirection: 'column', 
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+        borderWidth: 1,
+        borderColor: '#000000',
+        textAlign: 'center'
+      },
+    
+      nextButton: {
+        flexDirection: 'column', 
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+        borderWidth: 1,
+        borderColor: '#000000',
+        textAlign: 'center',
+        backgroundColor: '#000000',
+    
+      },
+    
+      backButtonText: {
+        fontSize: 24,
+        fontWeight: 600,
+       },
+    
+      nextButtonText: {
+        fontSize: 24,
+        fontWeight: 600,
+        color: '#FFFFFF',
+       },
 });

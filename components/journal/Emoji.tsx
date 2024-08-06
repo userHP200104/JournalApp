@@ -10,12 +10,12 @@ interface EmojiButtonProps {
     feeling: string;
 }
 
-interface ButtonsProps {
-    navigation: any;
-    prevScreen: string;
-    nextScreen: string;
-    nextButton: string;
-}
+// interface ButtonsProps {
+//     navigation: any;
+//     prevScreen: string;
+//     nextScreen: string;
+//     nextButton: string;
+// }
 
 
 const EmojiButton:React.FC<EmojiButtonProps> = ({emoji, feeling}) => {
@@ -44,52 +44,55 @@ const EmojiButton:React.FC<EmojiButtonProps> = ({emoji, feeling}) => {
     );
   }
 
-const Emoji: React.FC<ButtonsProps> = ({ navigation, prevScreen, nextScreen, nextButton}) => {
+// const Emoji: React.FC<ButtonsProps> = (
+// const Emoji = (
+//     // { navigation, prevScreen, nextScreen, nextButton}
+// ) => {
 
-    const [emoji, setEmoji] = useState('What are you feeling today?')
-    const [feeling, setFeeling] = useState('')
+//     const [emoji, setEmoji] = useState('What are you feeling today?')
+//     const [feeling, setFeeling] = useState('')
 
-  return (
-    <>
-    <View style={styles.emojiButtonContainer}>
+//   return (
+//     <>
+//     <View style={styles.emojiButtonContainer}>
 
-        <Text style={styles.emojiText}>{emoji}</Text>
+//         <Text style={styles.emojiText}>{emoji}</Text>
 
-        <View style={styles.emojiButtonRow}>
-            <TouchableOpacity onPress={() =>{setEmoji('😁'); setFeeling('Happiness')}}>
-                <EmojiButton emoji={'😁'} feeling={'Happiness'}/>
-            </TouchableOpacity>
+//         <View style={styles.emojiButtonRow}>
+//             <TouchableOpacity onPress={() =>{setEmoji('😁'); setFeeling('Happiness')}}>
+//                 <EmojiButton emoji={'😁'} feeling={'Happiness'}/>
+//             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() =>{setEmoji('😢'); setFeeling('Sadness')}}>
-                <EmojiButton emoji={'😢'} feeling={'Sadness'}/>
-            </TouchableOpacity>
+//             <TouchableOpacity onPress={() =>{setEmoji('😢'); setFeeling('Sadness')}}>
+//                 <EmojiButton emoji={'😢'} feeling={'Sadness'}/>
+//             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() =>{setEmoji('😡'); setFeeling('Anger')}}>
-                <EmojiButton emoji={'😡'} feeling={'Anger'}/>
-            </TouchableOpacity>
+//             <TouchableOpacity onPress={() =>{setEmoji('😡'); setFeeling('Anger')}}>
+//                 <EmojiButton emoji={'😡'} feeling={'Anger'}/>
+//             </TouchableOpacity>
         
-        </View>
+//         </View>
 
-        <View style={styles.emojiButtonRow}>
-            <TouchableOpacity onPress={() =>{setEmoji('😨'); setFeeling('Fear')}}>
-                <EmojiButton emoji={'😨'} feeling={'Fear'}/>
-            </TouchableOpacity>
+//         <View style={styles.emojiButtonRow}>
+//             <TouchableOpacity onPress={() =>{setEmoji('😨'); setFeeling('Fear')}}>
+//                 <EmojiButton emoji={'😨'} feeling={'Fear'}/>
+//             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() =>{setEmoji('😮'); setFeeling('Suprise')}}>
-                <EmojiButton emoji={'😮'} feeling={'Suprise'}/>
-            </TouchableOpacity>
+//             <TouchableOpacity onPress={() =>{setEmoji('😮'); setFeeling('Suprise')}}>
+//                 <EmojiButton emoji={'😮'} feeling={'Suprise'}/>
+//             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() =>{setEmoji('❤️'); setFeeling('Love')}}>
-                <EmojiButton emoji={'❤️'} feeling={'Love'}/>
-            </TouchableOpacity>
+//             <TouchableOpacity onPress={() =>{setEmoji('❤️'); setFeeling('Love')}}>
+//                 <EmojiButton emoji={'❤️'} feeling={'Love'}/>
+//             </TouchableOpacity>
             
-        </View>
-    </View>
-    <ReviewEntryButton navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} entryKey='feeling' answer={feeling+" "+emoji}/>
-    </>
+//         </View>
+//     </View>
+//     {/* <ReviewEntryButton navigation={navigation} prevScreen={prevScreen} nextScreen={nextScreen} nextButton={nextButton} entryKey='feeling' answer={feeling+" "+emoji}/> */}
+//     </>
 
-  );
-}
+//   );
+// }
 
 const styles = StyleSheet.create({
   
@@ -126,6 +129,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         padding: 32,
+        marginBottom: '32%'
     },
     
     emojiButtonRow: {
@@ -137,4 +141,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default Emoji;
+export default EmojiButton;

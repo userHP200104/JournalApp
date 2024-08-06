@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     width: '100%',
     // backgroundColor: '#000000',
     paddingTop: 48,
-    marginBottom: 132,
+    marginBottom: 0,
     paddingHorizontal: 20,
     overflow: 'scroll'
   }, 
