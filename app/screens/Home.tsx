@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Button, Image } from 'react-native';
-
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Button } from 'react-native';
+import { FontAwesome6 } from '@expo/vector-icons';
 import { useCallback, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
+
 
 type RootStackParamList = {
   Home: undefined;
@@ -34,6 +35,7 @@ interface Entry {
   isDone: boolean;
 }
 
+
 export default function Home({ navigation }: HomeProps) {
   const [entries, setEntries] = useState<Entry[]>([]);
 
@@ -41,9 +43,9 @@ export default function Home({ navigation }: HomeProps) {
     try {
       await AsyncStorage.clear();
       setEntries([]); // Clear the state after clearing the storage
-      alert('Storage successfully cleared!');
+      // alert('Storage successfully cleared!');
     } catch (e) {
-      alert('Failed to clear the async storage. ' + e);
+      // alert('Failed to clear the async storage. ' + e);
     }
   };
 
@@ -106,7 +108,6 @@ export default function Home({ navigation }: HomeProps) {
 
 
     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-
       {/* Header */}        
       <View style={styles.header}>
         <Text style={styles.headerText}>My Entries</Text>
@@ -129,15 +130,14 @@ export default function Home({ navigation }: HomeProps) {
 
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={clearStorage}>
-        <Text style={styles.buttonText}>Clear Storage</Text>
-      </TouchableOpacity>
 
+      <TouchableOpacity style={styles.button} onPress={clearStorage}>
+        <Text style={styles.buttonText}>Delete All</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestions')}>
         <View style={styles.addButtonView}>
-          <Text style={styles.addButtonText}>
-            + Add Entry
-            </Text>
+          <Text style={styles.addButtonText}>Create Today's Entry</Text>
+          <FontAwesome6 name={'pen-to-square'} color={'#fefefe'} size={24}/>
         </View>
       </TouchableOpacity>      
       {/* Add Journal Entry Button End*/}
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: 'red',
+    color: '#1a1a1a10',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -235,16 +235,11 @@ const styles = StyleSheet.create({
   emptyTextOne: {
     textAlign: 'left',
     margin: 'auto',
-    paddingVertical: '72%',
+    paddingVertical: '68%',
     fontSize: 24,
     fontWeight: 'bold',
 
     // paddingTop: '100%',
-  },
-
-  emptyTextTwo: {
-    textAlign: 'center',
-    marginTop: '100%',
   },
 
   arrow: {
@@ -261,25 +256,31 @@ const styles = StyleSheet.create({
   },
 
   addButtonContainer:{
-    width: '100%',
-    backgroundColor: '#000'
+    backgroundColor: '#1a1a1a',
+    marginBottom: 48,
+    borderRadius: 64,
   },
 
   addButtonView: {
-    flexDirection: 'column', 
+    flexDirection: 'row', 
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 48,
-    padding: 32,
-    width: '100%',
-    // backgroundColor: '#000000',
+    paddingVertical: 18,
+    paddingHorizontal: 32,
     textAlign: 'center',
+    gap: 12,
   },
 
   addButtonText: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#ffffff',
+    fontWeight: '600',
+    color: '#fefefe',
    },
-
 });
+
+/*
+TODO: 
+- once an entry has been made for the day the create button is disabled
+  and shows a timmer for when it enables again
+
+*/

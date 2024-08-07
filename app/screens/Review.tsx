@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { FontAwesome6 } from '@expo/vector-icons';
+
 
 import ReviewTemplate from '@/components/journal/ReviewTemplate';
 
@@ -95,7 +97,8 @@ export default function Review({ route, navigation }: ReviewProps) {
           <View style={styles.buttonContainer}>
             {/* Back Button */}
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('JournalQuestions')}>
-              <Text style={styles.backButtonText}>&lt;&nbsp;Back</Text>
+              <FontAwesome6 name="chevron-left" size={16} color="#1a1a1a"/>
+              <Text style={styles.backButtonText}>Back</Text>
             </TouchableOpacity>
             {/* Back Button End */}
 
@@ -180,42 +183,47 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         paddingTop: 32,
         paddingBottom: 48,
-        borderTopWidth: 1,
-        borderTopColor: '#000000',
+        backgroundColor: '#fefefe',
+
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.04,
+        shadowRadius: 24,
       },
     
       backButton: {
-        flexDirection: 'column', 
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        paddingHorizontal: 20,
+        paddingHorizontal: 28,
         paddingVertical: 12,
         borderWidth: 1,
-        borderColor: '#000000',
-        textAlign: 'center'
-      },
-    
-      nextButton: {
-        flexDirection: 'column', 
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingVertical: 12,
-        borderWidth: 1,
-        borderColor: '#000000',
+        borderColor: '#1a1a1a',
         textAlign: 'center',
-        backgroundColor: '#000000',
-    
+        gap: 12,
+        borderRadius: 32,
+      },
+      nextButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 28,
+        paddingVertical: 12,
+        borderWidth: 1,
+        borderColor: '#1a1a1a',
+        textAlign: 'center',
+        backgroundColor: '#1a1a1a',
+        gap: 12,
+        borderRadius: 32,
       },
     
       backButtonText: {
         fontSize: 24,
-        fontWeight: 600,
+        fontWeight: '600',
        },
     
       nextButtonText: {
         fontSize: 24,
-        fontWeight: 600,
+        fontWeight: '600',
         color: '#FFFFFF',
        },
 });

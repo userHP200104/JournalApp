@@ -25,25 +25,28 @@ const ReviewTemplate:React.FC<ReviewTemplateProps> = ({title, feeling, question1
             <Text style={styles.feeling}>{feeling}</Text>
         </View>
 
-        <Text style={styles.questionTitle}>What was the highlight of your&nbsp;day?</Text>
-        <Text style={styles.question}>{question1}</Text>
-
-        <Text style={styles.questionTitle}>What was the biggest challenge you faced&nbsp;today?</Text>
-        <Text style={styles.question}>{question2}</Text>
-
-        <Text style={styles.questionTitle}>How did you overcome this&nbsp;challenge?</Text>
-        <Text style={styles.question}>{question3}</Text>
-
-        <Text style={styles.questionTitle}>What are you grateful for&nbsp;today?</Text>
-        <Text style={styles.question}>{question4}</Text>
-
-        <Text style={styles.questionTitle}>What did you learn&nbsp;today?</Text>
-        <Text style={styles.question}>{question5}</Text>
-
-        <Text style={styles.questionTitle}>What is one thing you could have done&nbsp;better?</Text>
-        <Text style={styles.question}>{question6}</Text>
         
-        <Text style={styles.spacer}></Text>
+
+          <Text style={styles.questionTitle}>What was the highlight of your&nbsp;day?</Text>
+          <Text style={styles.question}>{question1}</Text>
+
+          <Text style={styles.questionTitle}>What was the biggest challenge you faced&nbsp;today?</Text>
+          <Text style={styles.question}>{question2}</Text>
+
+          <Text style={styles.questionTitle}>How did you overcome this&nbsp;challenge?</Text>
+          <Text style={styles.question}>{question3}</Text>
+
+          <Text style={styles.questionTitle}>What are you grateful for&nbsp;today?</Text>
+          <Text style={styles.question}>{question4}</Text>
+
+          <Text style={styles.questionTitle}>What did you learn&nbsp;today?</Text>
+          <Text style={styles.question}>{question5}</Text>
+
+          <Text style={styles.questionTitle}>What is one thing you could have done&nbsp;better?</Text>
+          <Text style={styles.question}>{question6}</Text>
+          
+          <Text style={styles.spacer}></Text>
+        
     </ScrollView>
     // Question Container End  
 
@@ -92,7 +95,7 @@ questionTitle:{
     fontSize: 18,
     fontWeight: 'bold',
     paddingHorizontal: 16,
-    paddingBottom: 16,
+    paddingBottom: 4,
     
 },
 
@@ -100,7 +103,7 @@ question:{
     fontSize: 12,
     fontWeight: 400,
     paddingHorizontal: 16,
-    paddingBottom: 24,
+    paddingBottom: 16,
     
   },
 
