@@ -102,10 +102,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     paddingTop: 32,
     paddingBottom: 48,
-    paddingRight: 32,
+    paddingHorizontal: 32,
     backgroundColor: '#fefefe',
 
     shadowOffset: {width: 0, height: 0},

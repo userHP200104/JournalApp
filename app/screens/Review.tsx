@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     
       question:{
         fontSize: 24,
-        color: '#FFFFFF',
+        color: '#fefefe',
       },
     
       answerInputContainer: {
@@ -224,6 +224,6 @@ const styles = StyleSheet.create({
       nextButtonText: {
         fontSize: 24,
         fontWeight: '600',
-        color: '#FFFFFF',
+        color: '#fefefe',
        },
 });

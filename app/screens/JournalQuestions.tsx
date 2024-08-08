@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View, TouchableOpacity, TextInput, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, TextInput, NativeSyntheticEvent, NativeScrollEvent, GestureResponderEvent } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
@@ -175,6 +175,10 @@ const [progress, setProgress] = useState(100/totalQuestions);
 
   });
   
+  useEffect(()=>{
+    setErrorBanner('');
+
+  }, [title, answer1, answer2, answer3, answer4, answer5, answer6, feeling]);
 
   return (
     <>
@@ -186,13 +190,16 @@ const [progress, setProgress] = useState(100/totalQuestions);
               <Text style={styles.headerText}>{question.headerText}</Text>
             </View>
             {/* Question */}
-              <Text style={styles.required}>required*</Text>
-            <View style={styles.questionContainer}>
-              <Text style={styles.question}>{question.questionText}</Text>
+                <View style={styles.questionContainer}>
+              <Text style={styles.question}>
+                {question.questionText}&nbsp;
+                <Text style={styles.red}>*</Text>
+                </Text>
               {/* Answer */}
-              
             </View>
+           
             {question.headerText != 'Last Question' ? (
+              <>
               <View style={styles.answerInputContainer}>
                 <TextInput
                   multiline={true}
@@ -202,12 +209,15 @@ const [progress, setProgress] = useState(100/totalQuestions);
                   placeholder='Type your answer here...'
                   value={question.id}
                   maxLength={question.limit}
-                />
+                  />
                 <Text style={styles.characterCount}>
                   {question.id.length} / {question.limit}
                 </Text>
               </View>
-            ) : (
+                <Text style={styles.spacer}></Text>
+              </>
+
+              ):(
               <>
                 <View style={styles.emojiButtonContainer}>
                   <Text style={styles.emojiText}>{emoji}</Text>
@@ -239,6 +249,13 @@ const [progress, setProgress] = useState(100/totalQuestions);
           </View>
         ))}
       </ScrollView>
+      <View style={styles.requiredView}>
+        <View style={styles.requiredPill}>
+          <Text style={styles.required}>All questions are required&nbsp;
+            <Text style={styles.red}>*</Text>
+            </Text>
+        </View>
+      </View>
       <ProgressBar />
 
       {/* Button */}
@@ -319,14 +336,37 @@ const styles = StyleSheet.create({
     color: '#eee',
     fontWeight: 'bold',
   },
-  required: {
-    color: '#ff0050',
-    fontWeight: '700',
-    paddingVertical: 12,
-    paddingRight: 32,
-    textAlign: 'right',
+  requiredView: {
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     backgroundColor: "#fefefe",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+
+    // backgroundColor: "#fefefe",
+  },
+  requiredPill: {
+    // backgroundColor: "#FF9FBD",
+    paddingTop: 12,
+    paddingHorizontal: 0,
+    width: "auto",
+    borderRadius: 120,
+  },
+  
+  required: {
+    color: '#1a1a1a',
+    fontWeight: '700',
+  },
+  
+  red: {
+    color: '#f00',
+  },
+
+  spacer:{
+    height: '18%',
+    width: '100%',
+    backgroundColor: '#fefefe',
   },
   
   // Answer
@@ -337,8 +377,9 @@ const styles = StyleSheet.create({
     padding: 32,
     backgroundColor: '#fefefe',
   },
-
+  
   answerInput: {
+    flex: 1,
     width: '100%',
   },
   // Feelings/Emoji's
@@ -453,7 +494,7 @@ const styles = StyleSheet.create({
   // Character Count
   characterCount: {
     marginTop: 8,
-    color: '#1a1a1a',
+    color: '#aaa',
     fontWeight: '700',
   },
   

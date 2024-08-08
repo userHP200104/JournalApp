@@ -22,7 +22,9 @@ const ReviewTemplate:React.FC<ReviewTemplateProps> = ({title, feeling, question1
         <Text style={styles.title}>{title}</Text>
         
         <View style={styles.feelingContainer}>
-            <Text style={styles.feeling}>{feeling}</Text>
+          <View style={styles.feelingPill}>
+              <Text style={styles.feeling}>{feeling}</Text>
+          </View>
         </View>
 
         
@@ -58,17 +60,16 @@ const styles = StyleSheet.create({
   reviewContainer:{
     flex: 1,
     flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'flex-start',
     width: '100%',
-    // backgroundColor: '#000000',
-    paddingTop: 48,
+    paddingTop: 80,
     marginBottom: 0,
     paddingHorizontal: 20,
-    overflow: 'scroll'
+    overflow: 'scroll',
+    backgroundColor: '#fefefe',
   }, 
-
+  
   title:{
+    // alignItems: 'flex-start',
     fontSize: 64,
     fontWeight: 'bold',
     paddingHorizontal: 16,
@@ -82,13 +83,19 @@ feelingContainer:{
     paddingBottom: 24,
 },
 
+feelingPill:{
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 32,
+    backgroundColor: '#1a1a1a',
+},
+
 feeling:{
     fontSize: 20,
     fontWeight: 'bold',
-    backgroundColor: '#000000',
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: '#FFFFFF',
+    color: '#fefefe',
 },
 
 questionTitle:{
@@ -100,10 +107,10 @@ questionTitle:{
 },
 
 question:{
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 400,
     paddingHorizontal: 16,
-    paddingBottom: 16,
+    paddingBottom: 32,
     
   },
 
