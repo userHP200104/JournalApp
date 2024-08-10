@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { FontAwesome6 } from '@expo/vector-icons';
 
 
 import ReviewTemplate from '@/components/journal/ReviewTemplate';
-import ReviewButtons from '@/components/journal/ReviewButtons';
 
 type RootStackParamList = {
   Review: { entryId: string };
@@ -80,7 +80,8 @@ export default function ViewEntry({ route, navigation }: ReviewProps) {
           <View style={styles.buttonContainer}>
         {/* Back Button */}
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.backButtonText}>&lt;&nbsp;Back</Text>
+            <FontAwesome6 name="chevron-left" size={16} color="#1a1a1a"/>
+            <Text style={styles.backButtonText}>Back</Text>
           </TouchableOpacity>
         {/* Back Button End */}
       </View>
@@ -101,27 +102,33 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     paddingTop: 32,
     paddingBottom: 48,
-    borderTopWidth: 1,
-    borderTopColor: '#000000',
+    paddingHorizontal: 32,
+    backgroundColor: '#fefefe',
+
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.04,
+    shadowRadius: 24,
   },
 
   backButton: {
-    flexDirection: 'column', 
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingHorizontal: 20,
+    paddingHorizontal: 28,
     paddingVertical: 12,
     borderWidth: 1,
-    borderColor: '#000000',
-    textAlign: 'center'
+    borderColor: '#1a1a1a',
+    textAlign: 'center',
+    gap: 12,
+    borderRadius: 32,
   },
 
   backButtonText: {
     fontSize: 24,
-    fontWeight: 600,
+    fontWeight: '600',
     },
     
 });

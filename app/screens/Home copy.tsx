@@ -48,13 +48,13 @@ export default function Home({ navigation }: HomeProps) {
       // alert('Failed to clear the async storage. ' + e);
     }
   };
+
   
   const fetchEntries = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const entries = await AsyncStorage.multiGet(keys);
       const parsedEntries: Entry[] = entries.map(entry => JSON.parse(entry[1] || '{}')).filter(entry => entry.title);
-  
       // Sort entries by id (date)
       const sortedEntries = parsedEntries.sort((a, b) => new Date(b.id).getTime() - new Date(a.id).getTime());
       setEntries(sortedEntries);
@@ -63,6 +63,11 @@ export default function Home({ navigation }: HomeProps) {
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      fetchEntries();
+    }, [])
+  );
 
   const formatDate = (isoString: string): string => {
     const date = new Date(isoString);
@@ -99,102 +104,6 @@ export default function Home({ navigation }: HomeProps) {
     </TouchableOpacity>)
   );
 
-  const [timeRemaining, setTimeRemaining] = useState<number>(getTimeRemaining());
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimeRemaining(getTimeRemaining());
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  function getTimeRemaining(): number {
-    const now = new Date();
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999);
-
-    const difference = endOfDay.getTime() - now.getTime();
-    return Math.max(difference, 0); // Ensure timeRemaining is not negative
-  }
-
-  function formatTime(ms: number): string {
-    const seconds = Math.floor(ms / 1000);
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secondsLeft = seconds % 60;
-
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secondsLeft).padStart(2, '0')}`;
-  }
-
-  ////////////////////////////////////////////////////////////////
-
-  // Function to get today's date in ISO format
-const getTodayDateString = (): string => {
-  const today = new Date();
-  // Convert to ISO format (assuming the ID format is similar to ISO strings)
-  return today.toISOString().split('T')[0]; // 'YYYY-MM-DD' format
-};
-
-const [entryMade, setEntryMade] = useState(false);
-
-// Function to check if any entry ID matches today's date
-const checkForEntriesMadeToday = async () => {
-  try {
-    const ids = await getAllEntryIds(); // Fetch all entry IDs
-
-    const todayDateString = getTodayDateString();
-
-    const entryMadeToday = ids.some(id => id.startsWith(todayDateString));
-
-    setEntryMade(entryMadeToday);
-    
-  } catch (error) {
-    console.error('Failed to fetch or process AsyncStorage data:', error);
-  }
-};
-
-// Function to fetch all entry IDs (for completeness)
-const getAllEntryIds = async (): Promise<string[]> => {
-  try {
-    const keys = await AsyncStorage.getAllKeys();
-    const entries = await AsyncStorage.multiGet(keys);
-
-    const entryIds: string[] = entries
-      .map(([key, value]) => {
-        try {
-          const entry = JSON.parse(value || '{}');
-          return entry.id ? entry.id : null;
-        } catch (e) {
-          console.error(`Failed to parse entry with key ${key}:`, e);
-          return null;
-        }
-      })
-      .filter((id): id is string => id !== null);
-
-    return entryIds;
-
-  } catch (error) {
-    console.error('Failed to fetch or process AsyncStorage data:', error);
-    return [];
-  }
-};
-
-useFocusEffect(
-  useCallback(() => {
-    fetchEntries();
-    checkForEntriesMadeToday();
-    console.log(entryMade);
-  }, [entryMade])
-);
-
-// useEffect(() => {
-//     checkForEntriesMadeToday();
-//     console.log(entryMade);
-
-// }, [entryMade]);
-
-
   return (
 
 
@@ -225,20 +134,12 @@ useFocusEffect(
       <TouchableOpacity style={styles.button} onPress={clearStorage}>
         <Text style={styles.buttonText}>Delete All</Text>
       </TouchableOpacity>
-
-      {(entryMade)?
-      (<View style={styles.timerView}>
-          <Text style={styles.timerText1}>{'Time till next entry'}</Text>
-          <Text style={styles.timerText2}>{formatTime(timeRemaining)}</Text>
-      </View>)
-      :
-      (<TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestions')}>
+      <TouchableOpacity style={styles.addButtonContainer} onPress={() => navigation.navigate('JournalQuestions')}>
         <View style={styles.addButtonView}>
-          <Text style={styles.addButtonText}>Write today's entry</Text>
+          <Text style={styles.addButtonText}>Create Today's Entry</Text>
           <FontAwesome6 name={'pen-to-square'} color={'#fefefe'} size={24}/>
         </View>
-      </TouchableOpacity>      )
-      }
+      </TouchableOpacity>      
       {/* Add Journal Entry Button End*/}
       
     </View>
@@ -375,35 +276,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#fefefe',
    },
-
-  timerText1: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#aaa',
-   },
-
-  timerText2: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#aaa',
-   },
-
-   timerView:{
-     backgroundColor: '#e9e9e9',
-    // borderColor: '#1a1a1a',
-    // borderWidth: 1,
-    marginBottom: 48,
-    borderRadius: 16,
-    flexDirection: 'column', 
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 18,
-    paddingHorizontal: 32,
-    textAlign: 'center',
-    gap: 12,
-   },
 });
-
 
 /*
 TODO: 

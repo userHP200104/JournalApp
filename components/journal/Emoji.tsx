@@ -20,21 +20,8 @@ interface EmojiButtonProps {
 
 const EmojiButton:React.FC<EmojiButtonProps> = ({emoji, feeling}) => {
     
-    const [shadowRadius, setShadowRadius] = useState(24);
-    const [shadowOpacity, setShadowOpacity] = useState(0.08);
-    
     return (
-            <View style={
-                [styles.emojiButton, 
-                    {
-                        shadowOffset: {
-                            width: 0,
-                            height: -0, 
-                        },
-                        shadowOpacity,
-                        shadowRadius,
-                    }
-                ]}>
+            <View style={styles.emojiButton}>
             <Text>{emoji}</Text>     
             <Text style={styles.feelingsText}>{feeling}</Text>     
         </View>
@@ -117,9 +104,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         width: 100,
         height: 100,
-        backgroundColor: '#fff',
+        backgroundColor: '#fefefe',
         margin: 8,
         borderRadius: 8,
+        // borderColor: '#1a1a1a',
+        // borderWidth: 1,
+        shadowOffset: {width: 0, height: -0},
+        shadowOpacity: 0.08,
+        shadowRadius: 24,
   
     },
     

@@ -22,28 +22,33 @@ const ReviewTemplate:React.FC<ReviewTemplateProps> = ({title, feeling, question1
         <Text style={styles.title}>{title}</Text>
         
         <View style={styles.feelingContainer}>
-            <Text style={styles.feeling}>{feeling}</Text>
+          <View style={styles.feelingPill}>
+              <Text style={styles.feeling}>{feeling}</Text>
+          </View>
         </View>
 
-        <Text style={styles.questionTitle}>What was the highlight of your&nbsp;day?</Text>
-        <Text style={styles.question}>{question1}</Text>
-
-        <Text style={styles.questionTitle}>What was the biggest challenge you faced&nbsp;today?</Text>
-        <Text style={styles.question}>{question2}</Text>
-
-        <Text style={styles.questionTitle}>How did you overcome this&nbsp;challenge?</Text>
-        <Text style={styles.question}>{question3}</Text>
-
-        <Text style={styles.questionTitle}>What are you grateful for&nbsp;today?</Text>
-        <Text style={styles.question}>{question4}</Text>
-
-        <Text style={styles.questionTitle}>What did you learn&nbsp;today?</Text>
-        <Text style={styles.question}>{question5}</Text>
-
-        <Text style={styles.questionTitle}>What is one thing you could have done&nbsp;better?</Text>
-        <Text style={styles.question}>{question6}</Text>
         
-        <Text style={styles.spacer}></Text>
+
+          <Text style={styles.questionTitle}>What was the highlight of your&nbsp;day?</Text>
+          <Text style={styles.question}>{question1}</Text>
+
+          <Text style={styles.questionTitle}>What was the biggest challenge you faced&nbsp;today?</Text>
+          <Text style={styles.question}>{question2}</Text>
+
+          <Text style={styles.questionTitle}>How did you overcome this&nbsp;challenge?</Text>
+          <Text style={styles.question}>{question3}</Text>
+
+          <Text style={styles.questionTitle}>What are you grateful for&nbsp;today?</Text>
+          <Text style={styles.question}>{question4}</Text>
+
+          <Text style={styles.questionTitle}>What did you learn&nbsp;today?</Text>
+          <Text style={styles.question}>{question5}</Text>
+
+          <Text style={styles.questionTitle}>What is one thing you could have done&nbsp;better?</Text>
+          <Text style={styles.question}>{question6}</Text>
+          
+          <Text style={styles.spacer}></Text>
+        
     </ScrollView>
     // Question Container End  
 
@@ -55,17 +60,16 @@ const styles = StyleSheet.create({
   reviewContainer:{
     flex: 1,
     flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'flex-start',
     width: '100%',
-    // backgroundColor: '#000000',
-    paddingTop: 48,
+    paddingTop: 80,
     marginBottom: 0,
     paddingHorizontal: 20,
-    overflow: 'scroll'
+    overflow: 'scroll',
+    backgroundColor: '#fefefe',
   }, 
-
+  
   title:{
+    // alignItems: 'flex-start',
     fontSize: 64,
     fontWeight: 'bold',
     paddingHorizontal: 16,
@@ -79,28 +83,34 @@ feelingContainer:{
     paddingBottom: 24,
 },
 
+feelingPill:{
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 32,
+    backgroundColor: '#1a1a1a',
+},
+
 feeling:{
     fontSize: 20,
     fontWeight: 'bold',
-    backgroundColor: '#000000',
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: '#FFFFFF',
+    color: '#fefefe',
 },
 
 questionTitle:{
     fontSize: 18,
     fontWeight: 'bold',
     paddingHorizontal: 16,
-    paddingBottom: 16,
+    paddingBottom: 4,
     
 },
 
 question:{
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 400,
     paddingHorizontal: 16,
-    paddingBottom: 24,
+    paddingBottom: 32,
     
   },
 
