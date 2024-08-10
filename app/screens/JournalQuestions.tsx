@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: 32,
-    marginBottom: '32%',
+    marginBottom: '56%',
     backgroundColor: '#fefefe',
   },
   emojiButtonRow: {
